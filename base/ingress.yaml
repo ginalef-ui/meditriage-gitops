@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: meditriage-ingress
+  labels:
+    app: meditriage-backend
+    iniciativa: meditriage
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - api.meditriage.cl
+      secretName: meditriage-tls-secret
+  rules:
+    - host: api.meditriage.cl
+      http:
+        paths:
+          # https://api.meditriage.cl/v1/... (/triage, /patients, /audit, /admin)
+          - path: /v1(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: meditriage-service
+                port:
+                  number: 80

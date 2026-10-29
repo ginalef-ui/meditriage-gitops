@@ -1,0 +1,38 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: meditriage-dev
+
+resources:
+  - ../../base
+  - namespace.yaml
+  - secret.yaml
+
+labels:
+  - pairs:
+      environment: dev
+    includeSelectors: false
+
+# La imagen la actualiza el CI del repo app mediante un PR a este archivo:
+#   kustomize edit set image ghcr.io/ginalef-ui/meditriage-backend=ghcr.io/ginalef-ui/meditriage-backend:<git-sha>
+images:
+  - name: ghcr.io/ginalef-ui/meditriage-backend
+    digest: sha256:50e0fc6ea629379e39a11fdacbfcbd5cd29eade53b88973826c767c95d3dbae7
+
+patches:
+  - path: patch-deployment.yaml
+  - path: patch-hpa.yaml
+  - path: patch-configmap.yaml
+  - target:
+      kind: Ingress
+      name: meditriage-ingress
+    patch: |-
+      - op: replace
+        path: /spec/rules/0/host
+        value: dev.api.meditriage.cl
+      - op: replace
+        path: /spec/tls/0/hosts/0
+        value: dev.api.meditriage.cl
+      - op: replace
+        path: /spec/tls/0/secretName
+        value: meditriage-dev-tls-secret
