@@ -3,5 +3,5 @@ kind: HorizontalPodAutoscaler
 metadata:
   name: meditriage-backend-hpa
 spec:
-  minReplicas: 3   # alta disponibilidad (objetivo 99.5%)
+  minReplicas: 3
   maxReplicas: 5
