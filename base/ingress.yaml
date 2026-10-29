@@ -19,7 +19,7 @@ spec:
     - host: api.meditriage.cl
       http:
         paths:
-          # https://api.meditriage.cl/v1/... (/triage, /patients, /audit, /admin)
+          
           - path: /v1(/|$)(.*)
             pathType: ImplementationSpecific
             backend:
