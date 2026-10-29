@@ -6,23 +6,22 @@ metadata:
     app: meditriage-backend
     iniciativa: meditriage
 data:
-  # Runtime
+
   NODE_ENV: "production"
   PORT: "3000"
   API_BASE_PATH: "/v1"
 
-  # PostgreSQL (POSTGRES_USER / POSTGRES_PASSWORD van en meditriage-secrets)
   POSTGRES_HOST: "meditriage-postgres"
   POSTGRES_PORT: "5432"
   POSTGRES_DB: "meditriage_db"
 
-  # Kafka + patrón Outbox
+  
   KAFKA_BOOTSTRAP_SERVERS: "meditriage-kafka:9092"
   KAFKA_TOPIC: "meditriage.events"
   KAFKA_CONSUMER_GROUP: "clinica-group"
   OUTBOX_POLL_INTERVAL_SECONDS: "1"
   OUTBOX_RETRY_DELAY_SECONDS: "2"
 
-  # Servicios gestionados en Azure
+  
   AZURE_ML_ENDPOINT: "https://api.meditriage.cl/ml/v1/classify"
   AZURE_SQL_LEDGER_ENABLED: "true"
