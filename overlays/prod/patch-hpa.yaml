@@ -1,0 +1,7 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: meditriage-backend-hpa
+spec:
+  minReplicas: 3   # alta disponibilidad (objetivo 99.5%)
+  maxReplicas: 5
