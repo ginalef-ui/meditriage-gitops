@@ -6,8 +6,7 @@ metadata:
     app: meditriage-backend
     iniciativa: meditriage
 spec:
-  # Sin "replicas": el HPA es dueño del número de pods (minReplicas por overlay).
-  # Así Argo CD no marca OutOfSync cada vez que el HPA escala.
+
   selector:
     matchLabels:
       app: meditriage-backend
@@ -18,7 +17,7 @@ spec:
     spec:
       containers:
         - name: backend
-          # Sin tag: cada overlay fija el digest/tag en `images:` (kustomization.yaml).
+         
           image: ghcr.io/ginalef-ui/meditriage-backend
           imagePullPolicy: IfNotPresent
           ports:
