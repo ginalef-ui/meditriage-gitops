@@ -13,8 +13,7 @@ labels:
       environment: dev
     includeSelectors: false
 
-# La imagen la actualiza el CI del repo app mediante un PR a este archivo:
-#   kustomize edit set image ghcr.io/ginalef-ui/meditriage-backend=ghcr.io/ginalef-ui/meditriage-backend:<git-sha>
+
 images:
   - name: ghcr.io/ginalef-ui/meditriage-backend
     digest: sha256:50e0fc6ea629379e39a11fdacbfcbd5cd29eade53b88973826c767c95d3dbae7
