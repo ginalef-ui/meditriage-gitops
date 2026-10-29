@@ -6,4 +6,4 @@ metadata:
     iniciativa: meditriage
     environment: dev
   annotations:
-    argocd.argoproj.io/sync-wave: "-1"   # se crea antes que el resto
+    argocd.argoproj.io/sync-wave: "-1"
