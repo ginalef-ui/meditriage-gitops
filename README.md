@@ -24,9 +24,9 @@ overlays/
 ## Probar localmente
 
 ```bash
-kubectl kustomize overlays/dev     # ver el YAML final de dev
+kubectl kustomize overlays/dev
 kubectl kustomize overlays/prod
-kubectl apply -k overlays/dev      # aplicar a un cluster local (kind / Docker Desktop)
+kubectl apply -k overlays/dev
 ```
 
 ## Flujo de despliegue
