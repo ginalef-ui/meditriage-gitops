@@ -6,14 +6,12 @@ namespace: meditriage-prod
 resources:
   - ../../base
   - namespace.yaml
-  # El Secret de prod NO se versiona en texto plano. Ver secret.example.yaml y README.
 
 labels:
   - pairs:
       environment: prod
     includeSelectors: false
 
-# Promoción a prod = PR que cambia este digest/tag (requiere 2 revisores).
 images:
   - name: ghcr.io/ginalef-ui/meditriage-backend
     digest: sha256:50e0fc6ea629379e39a11fdacbfcbd5cd29eade53b88973826c767c95d3dbae7
