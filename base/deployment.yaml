@@ -6,7 +6,7 @@ metadata:
     app: meditriage-backend
     iniciativa: meditriage
 spec:
-
+  replicas: 1
   selector:
     matchLabels:
       app: meditriage-backend
@@ -17,8 +17,7 @@ spec:
     spec:
       containers:
         - name: backend
-         
-          image: ghcr.io/ginalef-ui/meditriage-backend
+          image: ghcr.io/ginalef-ui/meditriage-backend:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -30,18 +29,3 @@ spec:
             limits:
               cpu: "1000m"
               memory: "512Mi"
-          envFrom:
-            - configMapRef:
-                name: meditriage-config
-            - secretRef:
-                name: meditriage-secrets
-          readinessProbe:
-            tcpSocket:
-              port: 3000
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            tcpSocket:
-              port: 3000
-            initialDelaySeconds: 15
-            periodSeconds: 20
