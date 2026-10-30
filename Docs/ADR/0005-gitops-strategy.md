@@ -26,5 +26,3 @@ Adoptar el modelo de reconciliación **Pull-based (GitOps)** utilizando **Argo C
 * **Negativas:**
   * Introduce sobrecarga operativa al requerir la sincronización y mantenimiento de dos repositorios separados.
   * Dependencia del ciclo de vida y consumo de recursos del operador de Argo CD dentro del clúster.
-```[cite: 2, 10]
-
