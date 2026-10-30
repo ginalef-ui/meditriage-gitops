@@ -1,93 +1,30 @@
 apiVersion: apps/v1
-
 kind: Deployment
-
 metadata:
-
   name: meditriage-backend
-
   labels:
-
     app: meditriage-backend
-
     iniciativa: meditriage
-
 spec:
-
-
-
+  replicas: 1
   selector:
-
     matchLabels:
-
       app: meditriage-backend
-
   template:
-
     metadata:
-
       labels:
-
         app: meditriage-backend
-
     spec:
-
       containers:
-
         - name: backend
-
-         
-
-          image: ghcr.io/ginalef-ui/meditriage-backend
-
-          imagePullPolicy: IfNotPresent
-
+          image: nginx:alpine
           ports:
-
             - containerPort: 3000
-
               name: http
-
           resources:
-
             requests:
-
-              cpu: "200m"
-
-              memory: "256Mi"
-
+              cpu: "100m"
+              memory: "128Mi"
             limits:
-
-              cpu: "1000m"
-
-              memory: "512Mi"
-
-          envFrom:
-
-            - configMapRef:
-
-                name: meditriage-config
-
-            - secretRef:
-
-                name: meditriage-secrets
-
-          readinessProbe:
-
-            tcpSocket:
-
-              port: 3000
-
-            initialDelaySeconds: 5
-
-            periodSeconds: 10
-
-          livenessProbe:
-
-            tcpSocket:
-
-              port: 3000
-
-            initialDelaySeconds: 15
-
-            periodSeconds: 20
+              cpu: "500m"
+              memory: "256Mi"
