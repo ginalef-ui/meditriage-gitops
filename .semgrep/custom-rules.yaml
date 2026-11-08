@@ -1,0 +1,14 @@
+rules:
+  - id: hardcoded-postgres-password
+    message: "Contraseña de base de datos hardcodeada detectada."
+    severity: ERROR
+    languages: [yaml]
+    patterns:
+      - pattern-regex: 'POSTGRES_PASSWORD:\s*["''][^"'']+["'']'
+
+  - id: insecure-http-service
+    message: "Servicio configurado en HTTP inseguro en lugar de HTTPS."
+    severity: WARNING
+    languages: [yaml]
+    patterns:
+      - pattern-regex: 'http://'
