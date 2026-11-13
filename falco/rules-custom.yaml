@@ -1,0 +1,32 @@
+- rule: Terminal Shell in MediTriage Container
+  desc: Detecta si se abre una shell interactiva dentro de un contenedor de MediTriage en ejecución.
+  condition: >
+    spawned_process and container and
+    k8s.ns.name = "meditriage-prod" and
+    proc.name in (bash, sh, zsh, ash)
+  output: >
+    Shell interactiva detectada en contenedor de producción (user=%user.name pod=%k8s.pod.name container=%container.id shell=%proc.name)
+  priority: CRITICAL
+  tags: [container, shell, mitre_execution]
+
+- rule: Unauthorized Write Below Etc in MediTriage
+  desc: Detecta modificaciones no autorizadas en directorios de configuración del sistema (/etc).
+  condition: >
+    open_write and container and
+    k8s.ns.name = "meditriage-prod" and
+    fd.name startswith /etc/
+  output: >
+    Escritura detectada en /etc dentro de contenedor (file=%fd.name pod=%k8s.pod.name proc=%proc.name)
+  priority: ERROR
+  tags: [filesystem, mitre_persistence]
+
+- rule: Unexpected Outbound Connection from Backend
+  desc: Alerta si el contenedor realiza conexiones salientes sospechosas (ej. herramientas de descarga o reverse shells).
+  condition: >
+    outbound and container and
+    k8s.ns.name = "meditriage-prod" and
+    proc.name in (curl, wget, nc, netcat, nmap)
+  output: >
+    Conexión saliente inesperada desde el contenedor (proc=%proc.name connection=%fd.name pod=%k8s.pod.name)
+  priority: WARNING
+  tags: [network, mitre_exfiltration]
