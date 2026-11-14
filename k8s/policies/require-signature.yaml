@@ -1,0 +1,31 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-image-signature
+  annotations:
+    policies.kyverno.io/title: Require Signed Images
+    policies.kyverno.io/category: Supply Chain Security
+    policies.kyverno.io/description: >-
+      Verifica que las imágenes desplegadas en meditriage-prod estén firmadas criptográficamente con Cosign (Keyless OIDC).
+spec:
+  validationFailureAction: Enforce
+  background: false
+  webhookTimeoutSeconds: 30
+  failurePolicy: Fail
+  rules:
+    - name: check-cosign-signature
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              namespaces:
+                - meditriage-prod
+      verifyImages:
+        - imageReferences:
+            - "ghcr.io/ginalef-ui/meditriage-backend*"
+          attestors:
+            - entries:
+                - keyless:
+                    subject: "https://github.com/ginalef-ui/meditriage-gitops/.github/workflows/security.yml@refs/heads/main"
+                    issuer: "https://token.actions.githubusercontent.com"
